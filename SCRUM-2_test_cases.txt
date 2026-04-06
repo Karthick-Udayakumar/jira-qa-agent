@@ -1,0 +1,145 @@
+Test Cases for SCRUM-2: As a bank customer, I want to transfer money via UPI ID so that I can send funds instantly
+==================================================
+
+Here are the comprehensive test cases for the given user story:
+
+**POSITIVE TEST CASES**
+
+1. TC-01 | POSITIVE | Successful Transfer via UPI ID | 
+    * Steps: 
+        1. Login to the banking app
+        2. Navigate to the transfer money section
+        3. Select UPI ID as the transfer method
+        4. Enter a valid recipient UPI ID
+        5. Enter a transfer amount between ₹1 and ₹1,00,000
+        6. Confirm the transfer
+    * Expected Result: The transfer is successful, and the recipient receives the funds within 30 seconds. An SMS and in-app notification are sent to the sender.
+
+2. TC-02 | POSITIVE | Multiple Successful Transfers | 
+    * Steps: 
+        1. Login to the banking app
+        2. Navigate to the transfer money section
+        3. Select UPI ID as the transfer method
+        4. Enter a valid recipient UPI ID
+        5. Enter a transfer amount between ₹1 and ₹1,00,000
+        6. Confirm the transfer
+        7. Repeat steps 3-6 multiple times, ensuring the daily transfer limit is not exceeded
+    * Expected Result: Each transfer is successful, and the recipient receives the funds within 30 seconds. An SMS and in-app notification are sent to the sender after each transfer.
+
+3. TC-03 | POSITIVE | Transfer Amount at Minimum Limit | 
+    * Steps: 
+        1. Login to the banking app
+        2. Navigate to the transfer money section
+        3. Select UPI ID as the transfer method
+        4. Enter a valid recipient UPI ID
+        5. Enter a transfer amount of ₹1
+        6. Confirm the transfer
+    * Expected Result: The transfer is successful, and the recipient receives the funds within 30 seconds. An SMS and in-app notification are sent to the sender.
+
+4. TC-04 | POSITIVE | Transfer Amount at Maximum Limit | 
+    * Steps: 
+        1. Login to the banking app
+        2. Navigate to the transfer money section
+        3. Select UPI ID as the transfer method
+        4. Enter a valid recipient UPI ID
+        5. Enter a transfer amount of ₹1,00,000
+        6. Confirm the transfer
+    * Expected Result: The transfer is successful, and the recipient receives the funds within 30 seconds. An SMS and in-app notification are sent to the sender.
+
+**NEGATIVE TEST CASES**
+
+1. TC-05 | NEGATIVE | Invalid UPI ID | 
+    * Steps: 
+        1. Login to the banking app
+        2. Navigate to the transfer money section
+        3. Select UPI ID as the transfer method
+        4. Enter an invalid recipient UPI ID
+        5. Enter a transfer amount between ₹1 and ₹1,00,000
+        6. Confirm the transfer
+    * Expected Result: An error message "Recipient not found" is displayed, and the transfer is not processed.
+
+2. TC-06 | NEGATIVE | Transfer to Own UPI ID | 
+    * Steps: 
+        1. Login to the banking app
+        2. Navigate to the transfer money section
+        3. Select UPI ID as the transfer method
+        4. Enter the sender's own UPI ID as the recipient
+        5. Enter a transfer amount between ₹1 and ₹1,00,000
+        6. Confirm the transfer
+    * Expected Result: An error message "Cannot transfer to yourself" is displayed, and the transfer is not processed.
+
+3. TC-07 | NEGATIVE | Daily Transfer Limit Exceeded | 
+    * Steps: 
+        1. Login to the banking app
+        2. Navigate to the transfer money section
+        3. Select UPI ID as the transfer method
+        4. Enter a valid recipient UPI ID
+        5. Enter a transfer amount that exceeds the daily transfer limit of ₹5,00,000
+        6. Confirm the transfer
+    * Expected Result: An error message indicating that the daily transfer limit has been exceeded is displayed, and the transfer is not processed.
+
+**BOUNDARY VALUE ANALYSIS (BVA)**
+
+1. TC-08 | BVA | Transfer Amount at Minimum Limit - 1 | 
+    * Steps: 
+        1. Login to the banking app
+        2. Navigate to the transfer money section
+        3. Select UPI ID as the transfer method
+        4. Enter a valid recipient UPI ID
+        5. Enter a transfer amount of ₹0.99 (just below the minimum limit)
+        6. Confirm the transfer
+    * Expected Result: An error message indicating that the transfer amount is below the minimum limit is displayed, and the transfer is not processed.
+
+2. TC-09 | BVA | Transfer Amount at Maximum Limit + 1 | 
+    * Steps: 
+        1. Login to the banking app
+        2. Navigate to the transfer money section
+        3. Select UPI ID as the transfer method
+        4. Enter a valid recipient UPI ID
+        5. Enter a transfer amount of ₹1,00,001 (just above the maximum limit)
+        6. Confirm the transfer
+    * Expected Result: An error message indicating that the transfer amount exceeds the maximum limit is displayed, and the transfer is not processed.
+
+3. TC-10 | BVA | Daily Transfer Limit at Maximum | 
+    * Steps: 
+        1. Login to the banking app
+        2. Navigate to the transfer money section
+        3. Select UPI ID as the transfer method
+        4. Enter a valid recipient UPI ID
+        5. Enter a transfer amount that brings the total daily transfers to ₹5,00,000
+        6. Confirm the transfer
+    * Expected Result: The transfer is successful, and the recipient receives the funds within 30 seconds. An SMS and in-app notification are sent to the sender.
+
+**EDGE CASES**
+
+1. TC-11 | EDGE | Empty UPI ID Field | 
+    * Steps: 
+        1. Login to the banking app
+        2. Navigate to the transfer money section
+        3. Select UPI ID as the transfer method
+        4. Leave the UPI ID field empty
+        5. Enter a transfer amount between ₹1 and ₹1,00,000
+        6. Confirm the transfer
+    * Expected Result: An error message indicating that the UPI ID field is required is displayed, and the transfer is not processed.
+
+2. TC-12 | EDGE | Concurrent Transfers | 
+    * Steps: 
+        1. Login to the banking app
+        2. Navigate to the transfer money section
+        3. Select UPI ID as the transfer method
+        4. Enter a valid recipient UPI ID
+        5. Enter a transfer amount between ₹1 and ₹1,00,000
+        6. Confirm the transfer
+        7. Immediately initiate another transfer to the same or different recipient
+    * Expected Result: Both transfers are processed successfully, and the recipient receives the funds within 30 seconds. An SMS and in-app notification are sent to the sender after each transfer.
+
+3. TC-13 | EDGE | Failed Transaction Auto-Reversal | 
+    * Steps: 
+        1. Login to the banking app
+        2. Navigate to the transfer money section
+        3. Select UPI ID as the transfer method
+        4. Enter a valid recipient UPI ID
+        5. Enter a transfer amount between ₹1 and ₹1,00,000
+        6. Confirm the transfer
+        7. Simulate a failed transaction (e.g., due to network issues)
+    * Expected Result: The transaction is auto-reversed within 2 minutes, and the sender's account is credited back with the transferred amount. An SMS and in-app notification are sent to the sender indicating the failed transaction and auto-reversal.
